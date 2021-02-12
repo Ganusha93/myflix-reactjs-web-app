@@ -17,7 +17,7 @@ function Banner() {
 
         async function fetchData() {
             const request = await axios.get(requests.fetchCommedyMovies);
-            console.log(request)
+           
             setMovie(request.data.results[
                 Math.floor(Math.random() * request.data.results.length - 1)
             ])
