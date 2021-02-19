@@ -1,15 +1,17 @@
 import axios from './axios';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import "./Row.css"
 import ReactStars from "react-rating-stars-component";
 import Popup from 'reactjs-popup';
-
+import { faArrowCircleLeft, faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Row({ title, fetchUrl, isLargeRow = false }) {
 
     const [movies, setMovies] = useState([]);
     const [youtubeId, setYoutubeId] = useState("");
-
+    const ref = useRef(null);
+   
     const base_Url = "https://image.tmdb.org/t/p/original/"
     const BASE_URL = 'https://www.youtube.com/embed/';
     const API_END_POINT = 'https://api.themoviedb.org/3/';
@@ -46,6 +48,11 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
 
     }
 
+    const scroll=(scrollOffset)=>{
+        //debugger;
+         ref.current.scrollLeft += scrollOffset;
+    }
+
     const opts = {
         height: "390",
         width: "100%",
@@ -59,8 +66,13 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
         <div className="row">
             <h2>{title}</h2>
 
-            <div className="row__posters">
-
+            <div className="row__posters" ref={ref}>
+                <div className="slider_arrow_right">
+                    <a onClick={()=>{scroll(500)}}><FontAwesomeIcon icon={faArrowCircleRight} /></a>
+                </div>
+                <div className="slider_arrow_left">
+                    <a onClick={()=>{scroll(-500)}}><FontAwesomeIcon icon={faArrowCircleLeft} /></a>
+                </div>
                 {movies.map((movie) =>
                     ((isLargeRow && movie.poster_path) || (!isLargeRow && movie.backdrop_path)) && (
 
