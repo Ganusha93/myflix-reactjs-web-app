@@ -32,19 +32,22 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
 
     const handleTrailer = (movie) => {
 
-
+        console.log("click")
         axios.get(
             `${API_END_POINT}movie/${movie.id
             }?${API_KEY}&append_to_response=videos`
-        )
-            .then(response => {
-                const youtubeKey = response.data.videos.results[0].key;
+        ).then(response => {
+            console.log(response)
+            const youtubeKey = response.data.videos.results[0].key;
+            if (youtubeKey) {
                 setYoutubeId(youtubeKey);
-                // console.log(youtubeId)
+            }
+            console.log(youtubeId)
 
-            }).catch((error) => {
-                console.log("----------------------" + error.message)
-            });
+        }).catch((error) => {
+            setYoutubeId("")
+            // console.log("----------------------" + error.message)
+        });
 
     }
 
@@ -85,7 +88,10 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
                                     src={`${base_Url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
                                     alt={movie.name}
                                     onClick={() => {
-                                        handleTrailer(movie);
+                                        if (title != "Myflix Originals") {
+                                            handleTrailer(movie);
+                                        }
+
                                     }}
                                 />
                                 <div className="poster__name">
@@ -105,15 +111,15 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
                                 </div>
 
                             </div>} position="bottom left" >
-                                
-                            <div>{youtubeId && <iframe className="poster__trailer" src={`${BASE_URL}${youtubeId}`} ></iframe>}</div>
-                            
+
+                            <div>{youtubeId ? (<iframe className="poster__trailer" src={`${BASE_URL}${youtubeId}`} ></iframe>) : (<div className="poster__notExist" ><h1>Trailer Not Exist</h1></div>)}</div>
+
                         </Popup>
 
                     ))}
             </div>
 
-            {/* {trailerUrl && <Youtube videoId="{trailerUrl}" opts={opts}/>} */}
+
 
 
         </div>

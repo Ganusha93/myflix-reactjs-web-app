@@ -45,6 +45,7 @@
     margin-right: 10px;
     transition: transform 450ms;
     border-radius: 15px;
+    
 }
 
 .row__posterLarge {
@@ -85,4 +86,7 @@
 
 .image__button{
     position: relative;
+}
+.poster__notExist{
+    color: aliceblue;
 }
