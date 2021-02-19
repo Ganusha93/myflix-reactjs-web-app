@@ -19,6 +19,13 @@
     z-index: 1;
     cursor: pointer;
 }
+.slider_arrow_right:hover {
+    color: #ff3333;
+}
+
+.slider_arrow_left:hover {
+    color: #ff3333;
+}
 
 .slider_arrow_left {
     font-size: 2.5rem;
