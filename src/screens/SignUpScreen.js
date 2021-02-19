@@ -49,7 +49,7 @@ function SignUpScreen({ email }) {
         <div className="signupScreen">
             {!isRegitered ?( <form>
                 <h1>Sign In</h1>
-                <input ref={emailRef} placeholder="Email" type="email" value={email} />
+                <input ref={emailRef} placeholder="Email" type="email" defaultValue={email}  />
                 <input ref={passwordRef} placeholder="Password" type="password" />
                 <button type="submit" onClick={signIn}>Sign In</button>
                 <h4>
@@ -59,7 +59,7 @@ function SignUpScreen({ email }) {
             </form>)
                 :
                 (<form><h1>Sign Up</h1>
-                    <input ref={emailRef} placeholder="Email" type="email" value={email} />
+                    <input ref={emailRef} placeholder="Email" type="email" defaultValue={email} />
                     <input ref={passwordRef} placeholder="Password" type="password" />
                     <input ref={confirmPasswordRef} placeholder="Confirm Password" type="password" />
                     <button type="submit" onClick={register}>Sign Up</button>
