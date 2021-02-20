@@ -4,15 +4,14 @@
     color: white;
     object-fit: contain;
     margin-bottom: 10px;
-    
+    background-position: center center;
+    margin-bottom: 2rem;
 }
 
 .banner__contents{
     margin-left: 30px;
     padding-top: 140px;
-    height: 190px;
-   
-    
+    height: 190px; 
 
 }
 .banner__title{
@@ -57,3 +56,14 @@
     background-color: #e6e6e6;
     transition: all 0.2s;
 }
+
+/* @media(max-width: 800px){
+    .banner{
+        position: relative;
+        height: 448px;
+        color: white;
+        object-fit: contain;
+        margin-bottom: 10px;
+ 
+    }
+} */

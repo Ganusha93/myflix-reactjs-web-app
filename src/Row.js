@@ -20,7 +20,12 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
     useEffect(() => {
         async function fetchData() {
             const request = await axios.get(fetchUrl);
-            setMovies(request.data.results);
+            
+        //    const data = request.data.results.map((vote)=>{
+            const data =  request.data.results.sort((a,b)=>b.vote_average - a.vote_average );
+                // prices.sort((a, b) => a - b)     
+            // });
+            setMovies(data);
             return request
         }
         fetchData();
@@ -82,48 +87,54 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
                         <Popup key={movie.id}
 
                             trigger={<div className="poster__detail">
-                                <img
-                                    className={`row__poster ${isLargeRow && "row__posterLarge"}`}
+                                <div className = "image__content">
+                                    <img
+                                        className={`row__poster ${isLargeRow && "row__posterLarge"}`}
 
-                                    src={`${base_Url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
-                                    alt={movie.name}
-                                    onClick={() => {
-                                        if (title != "Myflix Originals") {
-                                            handleTrailer(movie);
-                                        }
+                                        src={`${base_Url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
+                                        alt={movie.name}
+                                        onClick={() => {
+                                            if (title != "Myflix Originals") {
+                                                handleTrailer(movie);
+                                            }
 
-                                    }}
-                                />
-                                <div className="poster__name">
-                                    {movie.title || movie.name}
-
+                                        }}
+                                    />
                                 </div>
-                                <div className="poster__rating">
-                                    <ReactStars
-                                        count={5}
-                                        size={20}
-                                        activeColor="#ffd700"
-                                        value={movie.vote_average / 2}
-                                        edit={false}
-                                        classNames="rating"
-                                    /> <p>{movie.vote_average / 2}</p>
+                                <div className = "poster__Info">
+                                    <div className="poster__name">
+                                        {movie.title || movie.name}
+                                        {movie.first_air_date?" - " + new Date(movie.first_air_date).getFullYear():null}
 
+                                    </div>
+                                    <div className="poster__rating">
+                                        <ReactStars
+                                            count={5}
+                                            size={20}
+                                            activeColor="#ffd700"
+                                            value={movie.vote_average / 2}
+                                            edit={false}
+                                            classNames="rating"
+                                        /> <p>{movie.vote_average / 2}</p>
+                                    </div>
                                 </div>
 
                             </div>} position="bottom left" >
 
-                            <div>{youtubeId ? (<iframe className="poster__trailer" src={`${BASE_URL}${youtubeId}`} ></iframe>) : (<div className="poster__notExist" ><h1>Trailer Not Exist</h1></div>)}</div>
-
+                            <div>{youtubeId ? (<iframe className="poster__trailer" src={`${BASE_URL}${youtubeId}`} ></iframe>) :null}</div>
+                            {!youtubeId?(<img src="https://i.ibb.co/XSyjQK0/unavailable.jpg" className="unavailable__video"></img>):null}
                         </Popup>
-
                     ))}
+
             </div>
-
-
-
 
         </div>
     )
 }
+
+  // "proxy": [
+  //   "https://image.tmdb.org/t/p/original/",
+  //   "https://api.themoviedb.org/3/"
+  // ],
 
 export default Row
