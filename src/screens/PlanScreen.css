@@ -1,6 +1,6 @@
-*{
-    font-size: large;
-}
+/* *{
+    font-sinpm ze: large;
+} */
 .planScreen__plan{
 display: flex;
 justify-content: space-between;
@@ -34,9 +34,6 @@ border-color: grey;
 }
 
 @media(max-width: 910px){
-    *{
-        font-size: large;
-    }
     .planScreen__plan {
         display: block;
         justify-content: space-between;
