@@ -1,5 +1,5 @@
 import axios from './axios';
-import React, { useState, useEffect,useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import "./Row.css"
 import ReactStars from "react-rating-stars-component";
 import Popup from 'reactjs-popup';
@@ -11,7 +11,7 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
     const [movies, setMovies] = useState([]);
     const [youtubeId, setYoutubeId] = useState("");
     const ref = useRef(null);
-   
+
     const base_Url = "https://image.tmdb.org/t/p/original/"
     const BASE_URL = 'https://www.youtube.com/embed/';
     const API_END_POINT = 'https://api.themoviedb.org/3/';
@@ -20,11 +20,8 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
     useEffect(() => {
         async function fetchData() {
             const request = await axios.get(fetchUrl);
-            
-        //    const data = request.data.results.map((vote)=>{
-            const data =  request.data.results.sort((a,b)=>b.vote_average - a.vote_average );
-                // prices.sort((a, b) => a - b)     
-            // });
+            const data = request.data.results.sort((a, b) => b.vote_average - a.vote_average);
+
             setMovies(data);
             return request
         }
@@ -37,7 +34,7 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
 
     const handleTrailer = (movie) => {
 
-        console.log("click")
+        // console.log("click")
         axios.get(
             `${API_END_POINT}movie/${movie.id
             }?${API_KEY}&append_to_response=videos`
@@ -56,9 +53,9 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
 
     }
 
-    const scroll=(scrollOffset)=>{
+    const scroll = (scrollOffset) => {
         //debugger;
-         ref.current.scrollLeft += scrollOffset;
+        ref.current.scrollLeft += scrollOffset;
     }
 
     const opts = {
@@ -76,10 +73,10 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
 
             <div className="row__posters" ref={ref}>
                 <div className="slider_arrow_right">
-                    <a onClick={()=>{scroll(500)}}><FontAwesomeIcon icon={faArrowCircleRight} /></a>
+                    <a onClick={() => { scroll(500) }}><FontAwesomeIcon icon={faArrowCircleRight} /></a>
                 </div>
                 <div className="slider_arrow_left">
-                    <a onClick={()=>{scroll(-500)}}><FontAwesomeIcon icon={faArrowCircleLeft} /></a>
+                    <a onClick={() => { scroll(-500) }}><FontAwesomeIcon icon={faArrowCircleLeft} /></a>
                 </div>
                 {movies.map((movie) =>
                     ((isLargeRow && movie.poster_path) || (!isLargeRow && movie.backdrop_path)) && (
@@ -87,7 +84,7 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
                         <Popup key={movie.id}
 
                             trigger={<div className="poster__detail">
-                                <div className = "image__content">
+                                <div className="image__content">
                                     <img
                                         className={`row__poster ${isLargeRow && "row__posterLarge"}`}
 
@@ -101,10 +98,10 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
                                         }}
                                     />
                                 </div>
-                                <div className = "poster__Info">
+                                <div className="poster__Info">
                                     <div className="poster__name">
                                         {movie.title || movie.name}
-                                        {movie.first_air_date?" - " + new Date(movie.first_air_date).getFullYear():null}
+                                        {movie.first_air_date ? " - " + new Date(movie.first_air_date).getFullYear() : null}
 
                                     </div>
                                     <div className="poster__rating">
@@ -119,10 +116,10 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
                                     </div>
                                 </div>
 
-                            </div>} position="bottom left" >
+                            </div>} position="center center" >
 
-                            <div>{youtubeId ? (<iframe className="poster__trailer" src={`${BASE_URL}${youtubeId}`} ></iframe>) :null}</div>
-                            {!youtubeId?(<img src="https://i.ibb.co/XSyjQK0/unavailable.jpg" className="unavailable__video"></img>):null}
+                            <div>{youtubeId ? (<iframe className="poster__trailer" src={`${BASE_URL}${youtubeId}`} ></iframe>) : null}</div>
+                            {!youtubeId ? (<img src="https://i.ibb.co/XSyjQK0/unavailable.jpg" className="unavailable__video"></img>) : null}
                         </Popup>
                     ))}
 
@@ -132,9 +129,9 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
     )
 }
 
-  // "proxy": [
-  //   "https://image.tmdb.org/t/p/original/",
-  //   "https://api.themoviedb.org/3/"
-  // ],
+// "proxy": [
+//   "https://image.tmdb.org/t/p/original/",
+//   "https://api.themoviedb.org/3/"
+// ],
 
 export default Row

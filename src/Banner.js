@@ -3,13 +3,17 @@ import React, { useState, useEffect } from 'react'
 import "./Banner.css"
 import requests from './Request';
 import Typewriter from "typewriter-effect";
+import Popup from 'reactjs-popup';
 
 
 
 
 function Banner() {
     const [movie, setMovie] = useState([])
-    
+    const [youtubeId, setYoutubeId] = useState("");
+    const BASE_URL = 'https://www.youtube.com/embed/';
+    const API_END_POINT = 'https://api.themoviedb.org/3/';
+    const API_KEY = 'api_key=b358d927dabbc27225266cea22cda0e1';
 
     function Truncate(string, n) {
         return string?.length > n ? string.substr(0, n - 1) + '...' : string;
@@ -29,23 +33,26 @@ function Banner() {
 
     }, [])
 
-    // const handleTrailer = (movie) => {
+    const handleTrailer = (movie) => {
+        //console.log("click")
+        axios.get(
+            `${API_END_POINT}movie/${movie.id
+            }?${API_KEY}&append_to_response=videos`
+        ).then(response => {
+            console.log("click")
+            const youtubeKey = response.data.videos.results[0].key;
+            console.log(youtubeKey)
+            if (youtubeKey) {
+                setYoutubeId(youtubeKey);
+            }
+            console.log(youtubeId)
 
+        }).catch((error) => {
+            setYoutubeId("")
+            console.log("----------------------" + error.message)
+        });
 
-    //     axios.get(
-    //         `${API_END_POINT}movie/${movie.id
-    //         }?${API_KEY}&append_to_response=videos`
-    //     )
-    //         .then(response => {
-    //             const youtubeKey = response.data.videos.results[0].key;
-    //             setYoutubeId(youtubeKey);
-    //             // console.log(youtubeId)
-
-    //         }).catch((error) => {
-    //             console.log("----------------------" + error.message)
-    //         });
-
-    // }
+    }
 
     return (
         <header
@@ -72,10 +79,22 @@ function Banner() {
                     />
 
                 </h1>
-                <div className="banner__buttons">
-                    <button className="banner__button" >Play</button>
-                    <button className="banner__button">List</button>
-                </div>
+
+                <Popup key={movie.id}
+
+                    trigger={<div>
+                        <button className="banner__button"
+                            onClick={() => {
+                                handleTrailer(movie);
+                            }}
+                        >Play</button>
+                    </div>} position="center center" >
+
+                    <div>{youtubeId ? (<iframe className="poster__trailer" src={`${BASE_URL}${youtubeId}`} ></iframe>) : null}</div>
+                    {!youtubeId ? (<img src="https://i.ibb.co/XSyjQK0/unavailable.jpg" className="unavailable__video"></img>) : null}
+                </Popup>
+
+                {/* </div> */}
                 <h1 className="banner__description">
                     {console.log(movie)}
                     <Typewriter
