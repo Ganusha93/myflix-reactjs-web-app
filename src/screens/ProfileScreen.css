@@ -8,7 +8,7 @@
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 8%;
+    padding-top: 5rem;
     max-width: 800px;
 }
 .profileScreen__body > h1 {
@@ -56,6 +56,62 @@ display: flex;
     border: none;
     cursor: pointer;
     font-weight: 600;
+}
+
+@media(max-width: 910px){
+    .profileScreen {
+        height: 100%;
+        color: white;
+    }
+
+    .profileScreen__body {
+        /* display: flex;
+        flex-direction: column;
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto; */
+        padding-top: 7rem;
+        padding-bottom: 5rem;
+        text-align: center;
+        width: 75%;
+        /* max-width: 800px;
+        align-items: center; */
+    }
+    .profileScreen__body > h1 {
+        font-size: 1.5rem;
+        /* font-weight: 400; */
+        /* border-bottom: 1px solid #282c2d;
+        margin-bottom: 20px; */
+    }
+
+    .profileScreen__info {
+        display: block;
+    }
+
+    .profileScreen__plan>h3 {
+        border-bottom: 1px solid #282c2d;
+        padding-bottom: 10px;
+        display: block;
+    }
+
+    .profileScreen__details {
+        color: white;
+        /* margin-left: 10px; */
+        flex: 1 1;
+        display: block;
+    }
+
+    .planScreen__plan {
+        display: block;
+        justify-content: space-between;
+        padding: 20px;
+        opacity: 0.8;
+        border: .5rem;
+        border-style: double;
+        margin: 2rem;
+        border-color: grey;
+    }
+
 }
 
 
