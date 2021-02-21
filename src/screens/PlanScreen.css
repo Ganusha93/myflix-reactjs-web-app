@@ -1,9 +1,18 @@
+*{
+    font-size: large;
+}
 .planScreen__plan{
 display: flex;
 justify-content: space-between;
 padding: 20px;
 opacity: 0.8;
+
+border: .5rem;
+border-style: double;
+margin: 2rem;
+border-color: grey;
 }
+
 .planScreen__plan:hover{
     opacity: 1;
 }
@@ -11,8 +20,50 @@ opacity: 0.8;
     padding: 10px 20px;
     background-color: #e50914;
     border: none;
+    margin-left: 5rem
+    /* min-width: 9rem; */
+}
+
+.planScreen__plan--disabled{
+    opacity: 1; 
+    border-color: #0bb0ff;
 }
 
 .planScreen__plan--disabled>button{
-    background-color: gray;
+    background-color: #0bb0ff;
+}
+
+@media(max-width: 910px){
+    *{
+        font-size: large;
+    }
+    .planScreen__plan {
+        display: block;
+        justify-content: space-between;
+        padding: 20px;
+        opacity: 0.8;
+        border: .5rem;
+        border-style: double;
+        margin: 1rem .5rem 1rem .5rem;
+        border-color: grey;
+    }
+
+    .planScreen_\=info {
+        margin-bottom: 1rem;
+    }
+
+    .planScreen__plan>button{
+       margin-left: 0
+    }
+    
+
+    .planScreen__plan--disabled>button {
+        background-color: #0bb0ff;
+    }
+
+    .planScreen__plan--disabled{
+        opacity: 1 !important; 
+        border-color: #0bb0ff !important;
+    }
+
 }
