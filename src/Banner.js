@@ -4,13 +4,17 @@ import "./Banner.css"
 import requests from './Request';
 import Typewriter from "typewriter-effect";
 import Popup from 'reactjs-popup';
+import FilteredMovie from './FilteredMovie';
 
 
 
 
 function Banner() {
     const [movie, setMovie] = useState([])
+    const [movieList, setMovieList] = useState([])
     const [youtubeId, setYoutubeId] = useState("");
+    const [query, setQuery] = useState("")
+    const [filteredMovies, setFilteredMovies] = useState([])
     const BASE_URL = 'https://www.youtube.com/embed/';
     const API_END_POINT = 'https://api.themoviedb.org/3/';
     const API_KEY = 'api_key=b358d927dabbc27225266cea22cda0e1';
@@ -24,6 +28,7 @@ function Banner() {
         async function fetchData() {
             const request = await axios.get(requests.fetchCommedyMovies);
 
+            setMovieList(request.data.results);
             setMovie(request.data.results[
                 Math.floor(Math.random() * request.data.results.length - 1)
             ])
@@ -39,7 +44,7 @@ function Banner() {
             `${API_END_POINT}movie/${movie.id
             }?${API_KEY}&append_to_response=videos`
         ).then(response => {
-            console.log("click")
+            // console.log("click")
             const youtubeKey = response.data.videos.results[0].key;
             console.log(youtubeKey)
             if (youtubeKey) {
@@ -52,6 +57,14 @@ function Banner() {
             console.log("----------------------" + error.message)
         });
 
+    }
+
+    const searchMovie = (e) => {
+        setQuery(e.target.value)
+        const filteredMovies = movieList.filter(movie => {
+            return movie.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+        });
+        setFilteredMovies(filteredMovies);
     }
 
     return (
@@ -93,10 +106,11 @@ function Banner() {
                     <div>{youtubeId ? (<iframe className="poster__trailer" src={`${BASE_URL}${youtubeId}`} ></iframe>) : null}</div>
                     {!youtubeId ? (<img src="https://i.ibb.co/XSyjQK0/unavailable.jpg" className="unavailable__video"></img>) : null}
                 </Popup>
+                <input icon="search" lable="search movie" onChange={(e) => searchMovie(e)} />
 
                 {/* </div> */}
                 <h1 className="banner__description">
-                    {console.log(movie)}
+                   
                     <Typewriter
                         options={{
                             strings: [Truncate(movie?.overview, 150)],
@@ -113,7 +127,11 @@ function Banner() {
                 </h1>
             </div>
             <div className="banner--fadeBottom"></div>
-
+            <div className="banner__List">
+                {filteredMovies.map(movie => {
+                 return(<FilteredMovie setMovie={setMovie} movie={movie}/> )     
+                   })}
+            </div>
         </header>
     )
 }
