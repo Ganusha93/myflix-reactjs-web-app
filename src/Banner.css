@@ -29,11 +29,12 @@
 }
 .banner--fadeBottom{
     position: relative; 
-    height: 7.4em;
-    background: -webkit-linear-gradient(
+    height: 448px;
+    background: linear-gradient(58deg, black, transparent);
+    /* background: -webkit-linear-gradient(
         rgba(2, 2, 2, 0) 0%,
         rgba(71, 70, 70, 0.507) 100%
-    ); 
+    );  */
 }
 .banner__button{
     cursor: pointer;
@@ -49,6 +50,31 @@
     background-color:rgba(51,51,51,0.5);
     padding-bottom:0.5rem;
 
+}
+.search__movie{
+    padding: 1rem;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #ffffff, transparent);
+    width: 25%;
+    border: 2px solid white;
+    padding-top: 1rem;
+}
+.search__icon{
+    font-size: 21px;
+    position: relative;
+    right: 3rem;
+}
+
+.banner__List{
+    position: absolute;
+    top: 67%;
+    left: 37%;
+    z-index: 4;
+    background: linear-gradient(2deg, black, transparent);
+    padding: 1rem;
+    height: 10rem;
+    overflow: auto;
+    width: 29%;
 }
 
 .banner__button:hover{
