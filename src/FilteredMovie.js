@@ -1,11 +1,11 @@
 import React from 'react'
 
-function FilteredMovie({movie,setMovie}) {
+function FilteredMovie({movie,setMovie,Truncate,setQuery}) {
     return (
         
-        <div>
-            {/* <h1>hello there</h1> */}
-            <div onClick={() => setMovie(movie)}>{movie.title}</div>
+        <div　className="filterd__list">
+            {console.log(movie)}
+            <li  onClick={() => {setMovie(movie);setQuery("")}} >{Truncate(movie.title,30)}</li>
         </div>
     )
 }

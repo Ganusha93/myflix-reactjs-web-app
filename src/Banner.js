@@ -5,6 +5,8 @@ import requests from './Request';
 import Typewriter from "typewriter-effect";
 import Popup from 'reactjs-popup';
 import FilteredMovie from './FilteredMovie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -39,7 +41,7 @@ function Banner() {
     }, [])
 
     const handleTrailer = (movie) => {
-        //console.log("click")
+        console.log(movie)
         axios.get(
             `${API_END_POINT}movie/${movie.id
             }?${API_KEY}&append_to_response=videos`
@@ -75,7 +77,7 @@ function Banner() {
                 backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
                 // backgroundPosition: "center center",
             }}>
-
+        <div className="banner--fadeBottom">
             <div className="banner__contents">
                 <h1 className="banner__title">
                     <Typewriter
@@ -106,7 +108,11 @@ function Banner() {
                     <div>{youtubeId ? (<iframe className="poster__trailer" src={`${BASE_URL}${youtubeId}`} ></iframe>) : null}</div>
                     {!youtubeId ? (<img src="https://i.ibb.co/XSyjQK0/unavailable.jpg" className="unavailable__video"></img>) : null}
                 </Popup>
-                <input icon="search" lable="search movie" onChange={(e) => searchMovie(e)} />
+                <div style={{textAlign: "center"}}>
+                <input className="search__movie" icon="search" lable="search movie" onChange={(e) => searchMovie(e)}/>
+                <a className="search__icon"> <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon></a>
+                {/* <i class="fas fa-search"></i> */}
+                </div>
 
                 {/* </div> */}
                 <h1 className="banner__description">
@@ -126,11 +132,20 @@ function Banner() {
 
                 </h1>
             </div>
-            <div className="banner--fadeBottom"></div>
-            <div className="banner__List">
+            </div>
+            <div className={filteredMovies &&query&&"banner__List"}>
+                               
+
+                <ul style={{listStyleType: "none"}}>
                 {filteredMovies.map(movie => {
-                 return(<FilteredMovie setMovie={setMovie} movie={movie}/> )     
+                 return(<div　className="filterd__list">
+                
+            {query &&<li  
+            onClick={() => {setMovie(movie);setQuery("");setFilteredMovies([])}} >{Truncate(movie.title,30)}
+            </li>}
+             </div> )     
                    })}
+                   </ul>
             </div>
         </header>
     )
