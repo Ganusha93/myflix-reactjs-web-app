@@ -93,15 +93,15 @@ function Banner() {
 
                 </h1>
 
-                <Popup key={movie.id}
+                <Popup key={movie.id} 
 
-                    trigger={<div>
+                    trigger={<div className="banner__popup">
                         <button className="banner__button"
                             onClick={() => {
                                 handleTrailer(movie);
                             }}
                         >Play</button>
-                    </div>} position="center center" >
+                    </div>} position="right center" >
 
                     <div>{youtubeId ? (<iframe className="poster__trailer" src={`${BASE_URL}${youtubeId}`} ></iframe>) : null}</div>
                     {!youtubeId ? (<img src="https://i.ibb.co/XSyjQK0/unavailable.jpg" className="unavailable__video"></img>) : null}
